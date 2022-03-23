@@ -1,0 +1,21 @@
+/*
+go from target to start
+divide instead of multiply (divide only if target is even else increatement by one and then divide cuz take one step back next step will be larger)
+add instead of subtrack
+*/
+class Solution {
+    public int brokenCalc(int startValue, int target) {
+        int result=0;
+        while(target > startValue)
+        {
+            result++;
+            if(target%2==0) {
+                target=target/2;   
+            } else {
+                target++;   
+            }
+        }
+        result = result + (startValue - target);
+        return result;
+    }
+}
