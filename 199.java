@@ -54,7 +54,6 @@ class Solution {
 
         while(!q.isEmpty()) {
             int sz = q.size();
-            List<Integer> level = new ArrayList<>();
             for(int i=0;i<sz;i++) {
                 TreeNode node = q.poll();
                 if(node != null) {
