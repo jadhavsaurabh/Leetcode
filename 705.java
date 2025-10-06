@@ -1,19 +1,21 @@
 class MyHashSet {
-    int[] hash;
+    boolean[] arr;
+    int sz = 1000_001;
+
     public MyHashSet() {
-        this.hash = new int[1000001];
+        arr = new boolean[sz];
     }
-    
+
     public void add(int key) {
-        this.hash[key] = 1;
+        arr[key] = true;
     }
-    
+
     public void remove(int key) {
-        this.hash[key] = 0;
+        arr[key] = false;
     }
-    
+
     public boolean contains(int key) {
-        return this.hash[key] == 1;   
+        return arr[key];
     }
 }
 
