@@ -2,7 +2,6 @@
   think of 0001, 0010 as adjecent nodes to 0000 & run bfs on such graph.
   if u reach target then mark min
 */
-
 class Data {
     int level;
     String str;
@@ -40,12 +39,13 @@ class Solution {
     }
 
     public int openLock(String[] deadends, String target) {
+        
         HashSet<String> ends = new HashSet<>();
         Collections.addAll(ends, deadends);
+        if(ends.contains("0000")) return -1;
         int min = Integer.MAX_VALUE;
         HashSet<String> visited = new HashSet<>();
         Queue<Data> queue = new LinkedList<>();
-        if(ends.contains("0000")) return -1;
         queue.add(new Data(0, "0000"));
         visited.add("0000");
 
@@ -53,13 +53,12 @@ class Solution {
             Data popped = queue.poll();
 
             if(Objects.equals(popped.str, target)) {
-                min = Math.min(min, popped.level);
-                continue;
+                return popped.level;
             }
 
             // Add all combinations with level
             for(String combination: generateCombinations(popped.str)) {
-                if(!ends.contains(combination) || !visited.contains(combination)) {
+                if(!ends.contains(combination) && !visited.contains(combination)) {
                     visited.add(combination);
                     queue.add(new Data(popped.level + 1, combination));
                 }
