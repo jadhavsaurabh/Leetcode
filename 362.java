@@ -2,27 +2,31 @@
   https://algomaster.io/learn/dsa/design-hit-counter
 */
 
+
+import java.util.ArrayDeque;
+import java.util.Deque;
+
 class HitCounter {
-    List<Integer> ls;
+    private final Deque<Integer> hits;
+
     public HitCounter() {
-        ls = new ArrayList<>();
+        hits = new ArrayDeque<>();
     }
 
     public void hit(int timestamp) {
-        ls.add(timestamp);
-        while(timestamp - ls.getFirst() >= 300) {
-            ls.removeFirst();
-        }
+        removeExpired(timestamp);
+        hits.offerLast(timestamp);
     }
 
     public int getHits(int timestamp) {
-        int count = 0;
-        for(int hit: ls) {
-            if(timestamp - hit < 300) {
-                count++;
-            }
+        removeExpired(timestamp);
+        return hits.size();
+    }
+
+    private void removeExpired(int timestamp) {
+        while (!hits.isEmpty()
+                && timestamp - hits.peekFirst() >= 300) {
+            hits.pollFirst();
         }
-        
-        return count;
     }
 }
